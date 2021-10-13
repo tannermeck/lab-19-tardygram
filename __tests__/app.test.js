@@ -130,12 +130,13 @@ describe('lab-19-tardygram routes', () => {
   it('should post a new comment to a gram and return that comment', async () => {
     const res = await request(app).post('/comments').send({
       comment: 'first',
-      grams_id: '7',
+      gramsId: '7',
     });
     expect(res.body).toEqual({
+      id: expect.any(String),
       comment: 'first',
       username: 'test_user',
-      grams_id: '7',
+      gramsId: '7',
     });
   });
 
