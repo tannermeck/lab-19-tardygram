@@ -76,14 +76,17 @@ describe('lab-19-tardygram routes', () => {
     const fakeGram = await Gram.create({
       username: 'test_user',
       photoUrl: 'catpicture.png',
-      catption: 'cat',
+      caption: 'cat',
       tags: ['cat', 'fur', 'allergies'],
     });
     const id = fakeGram.id;
 
-    const res = await request(app).patch(`/grams/${id}`);
+    const res = await request(app).patch(`/grams/${id}`).send({
+      caption: 'dog',
+    });
     expect(res.body).toEqual({
       username: 'test_user',
+      id,
       photoUrl: 'catpicture.png',
       caption: 'dog',
       tags: ['cat', 'fur', 'allergies'],
