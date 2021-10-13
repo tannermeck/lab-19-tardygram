@@ -3,7 +3,7 @@ const setup = require('../data/setup.js');
 const request = require('supertest');
 const app = require('../lib/app.js');
 const User = require('../lib/models/User.js');
-const setupDb = require('../lib/utils/setupDb.js');
+const setupDb = require('../lib/utils/seedDb.js');
 const Gram = require('../lib/models/Gram.js');
 
 jest.mock('../lib/middleware/ensure-auth.js', () => {
@@ -91,6 +91,20 @@ describe('lab-19-tardygram routes', () => {
       caption: 'dog',
       tags: ['cat', 'fur', 'allergies'],
     });
+  });
+
+  it('should delete a post by id and return that post', async () => {
+    const fakeGram = await Gram.create({
+      username: 'test_user',
+      photoUrl: 'catpicture.png',
+      caption: 'cat',
+      tags: ['cat', 'fur', 'allergies'],
+    });
+    const id = fakeGram.id;
+
+    const res = await request(app).delete(`/grams/${id}`);
+
+    expect(res.body).toEqual({ ...fakeGram, id });
   });
 
   afterAll(() => {
