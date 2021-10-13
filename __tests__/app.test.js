@@ -52,9 +52,9 @@ describe('lab-19-tardygram routes', () => {
     expect(res.body).toEqual(
       expect.arrayContaining([
         {
-      id: expect.any(String),
+      // id: expect.any(String),
       username: expect.any(String),
-      photo_url: expect.any(String),
+      photoUrl: expect.any(String),
       caption: expect.any(String),
       tags: expect.arrayContaining([ expect.any(String) ]),
     }])
