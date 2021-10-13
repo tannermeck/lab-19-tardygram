@@ -9,8 +9,8 @@ describe('lab-19-tardygram routes', () => {
   });
 
   it('should create and return a new post using POST /grams', async () => {
-    const res = request(app)
-      .post('/gram')
+    const res = await request(app)
+      .post('/grams')
       .send({
         photoUrl: 'catpictures.com/cat',
         caption: 'my first post!',
