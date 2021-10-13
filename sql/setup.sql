@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS grams CASCADE;
 DROP TABLE IF EXISTS tags;
+DROP TABLE IF EXISTS comments;
 
 
 CREATE TABLE users (
@@ -19,6 +20,15 @@ CREATE TABLE grams (
 CREATE TABLE tags (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   tag TEXT NOT NULL,
-  grams_id BIGINT,
+  grams_id BIGINT NOT NULL,
   FOREIGN KEY (grams_id) references grams(id)
 );
+
+CREATE TABLE comments (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  comment TEXT NOT NULL,
+  username TEXT NOT NULL,
+  grams_id BIGINT NOT NULL,
+  FOREIGN KEY (grams_id) references grams(id),
+  FOREIGN KEY (username) references users(github_name)
+)
