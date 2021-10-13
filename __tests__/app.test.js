@@ -8,6 +8,23 @@ describe('lab-19-tardygram routes', () => {
     return setup(pool);
   });
 
+  it('should create and return a new post using POST /grams', async () => {
+    const res = request(app)
+      .post('/gram')
+      .send({
+        photoUrl: 'catpictures.com/cat',
+        caption: 'my first post!',
+        tags: ['cat', 'first-post', 'tardygram'],
+      });
+
+    expect(res.body).toEqual({
+      user: 'pete-hamrick',
+      photoUrl: 'catpictures.com/cat',
+      caption: 'my first post!',
+      tags: ['cat', 'first-post', 'tardygram'],
+    });
+  });
+
   afterAll(() => {
     pool.end();
   });
