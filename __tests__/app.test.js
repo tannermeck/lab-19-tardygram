@@ -145,7 +145,7 @@ describe('lab-19-tardygram routes', () => {
       comment: 'first',
       gramsId: '7',
     });
-    const id = comment.id;
+    const id = comment.body.id;
     const res = await request(app).delete(`/comments/${id}`);
 
     expect(res.body).toEqual({
