@@ -43,7 +43,7 @@ describe('lab-19-tardygram routes', () => {
       username: user.username,
       photo_url: 'catpictures.com/cat',
       caption: 'my first post!',
-      tags: ['cat', 'first-post', 'tardygram'],
+      tags: expect.arrayContaining(['cat', 'first-post', 'tardygram']),
     });
   });
 
@@ -89,7 +89,7 @@ describe('lab-19-tardygram routes', () => {
       id,
       photoUrl: 'catpicture.png',
       caption: 'dog',
-      tags: ['cat', 'fur', 'allergies'],
+      tags: expect.arrayContaining(['cat', 'fur', 'allergies']),
     });
   });
 
@@ -120,7 +120,7 @@ describe('lab-19-tardygram routes', () => {
           username: expect.any(String),
           photoUrl: expect.any(String),
           caption: expect.any(String),
-          tags: expect.arrayContaining[expect.anything()],
+          comments: expect.any(String),
         },
       ])
     );
