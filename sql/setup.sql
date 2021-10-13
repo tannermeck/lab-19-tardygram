@@ -21,7 +21,7 @@ CREATE TABLE tags (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   tag TEXT NOT NULL,
   grams_id BIGINT NOT NULL,
-  FOREIGN KEY (grams_id) references grams(id)
+  FOREIGN KEY (grams_id) references grams(id) ON DELETE CASCADE
 );
 
 CREATE TABLE comments (

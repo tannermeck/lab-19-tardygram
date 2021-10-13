@@ -104,7 +104,12 @@ describe('lab-19-tardygram routes', () => {
 
     const res = await request(app).delete(`/grams/${id}`);
 
-    expect(res.body).toEqual({ ...fakeGram, id });
+    expect(res.body).toEqual({
+      username: 'test_user',
+      id,
+      photoUrl: 'catpicture.png',
+      caption: 'cat',
+    });
   });
 
   afterAll(() => {
