@@ -2,6 +2,20 @@ const pool = require('../lib/utils/pool.js');
 const setup = require('../data/setup.js');
 const request = require('supertest');
 const app = require('../lib/app.js');
+const User = require('../lib/models/User.js');
+
+jest.mock('../lib/middleware/ensure-auth.js', () => {
+  return (req, res, next) => {
+    req.user = {
+      username: 'test_user',
+      photoUrl: 'https://example.com/image.png',
+      iat: Date.now(),
+      exp: Date.now(),
+    };
+
+    next();
+  };
+});
 
 describe('lab-19-tardygram routes', () => {
   beforeEach(() => {
@@ -9,6 +23,10 @@ describe('lab-19-tardygram routes', () => {
   });
 
   it('should create and return a new post using POST /grams', async () => {
+    const user = await User.insert({
+      username: 'test_user',
+      photoUrl: 'https://example.com/image.png'
+    })
     const res = await request(app)
       .post('/grams')
       .send({
@@ -18,8 +36,9 @@ describe('lab-19-tardygram routes', () => {
       });
 
     expect(res.body).toEqual({
-      user: 'pete-hamrick',
-      photoUrl: 'catpictures.com/cat',
+      id: expect.any(String),
+      username: user.username,
+      photo_url: 'catpictures.com/cat',
       caption: 'my first post!',
       tags: ['cat', 'first-post', 'tardygram'],
     });

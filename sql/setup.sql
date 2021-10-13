@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS grams;
+DROP TABLE IF EXISTS grams CASCADE;
 DROP TABLE IF EXISTS tags;
-DROP TABLE IF EXISTS gram_tag;
+
 
 CREATE TABLE users (
   github_name TEXT NOT NULL PRIMARY KEY,
@@ -18,10 +18,7 @@ CREATE TABLE grams (
 
 CREATE TABLE tags (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  tags TEXT NOT NULL,
-);
-
-CREATE TABLE gram_tag (
-  grams_id BIGINT NOT NULL,
-  tags_id BIGINT NOT NULL
+  tag TEXT NOT NULL,
+  grams_id BIGINT,
+  FOREIGN KEY (grams_id) references grams(id)
 );
