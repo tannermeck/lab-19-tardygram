@@ -140,6 +140,22 @@ describe('lab-19-tardygram routes', () => {
     });
   });
 
+  it('should delete a comment and return that deleted comment', async () => {
+    const comment = await request(app).post('/comments').send({
+      comment: 'first',
+      gramsId: '7',
+    });
+    const id = comment.id;
+    const res = await request(app).delete(`/comments/${id}`);
+
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      comment: 'first',
+      username: 'test_user',
+      gramsId: '7',
+    });
+  });
+
   afterAll(() => {
     pool.end();
   });
