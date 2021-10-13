@@ -67,6 +67,7 @@ describe('lab-19-tardygram routes', () => {
       photoUrl: expect.any(String),
       caption: expect.any(String),
       tags: expect.arrayContaining([ expect.any(String) ]),
+      comments: expect.arrayContaining([ expect.any(String) ]),
     }
   )});
 
