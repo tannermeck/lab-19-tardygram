@@ -112,6 +112,21 @@ describe('lab-19-tardygram routes', () => {
     });
   });
 
+  it('should return the 10 grams with the most comments', async () => {
+    const res = await request(app).get('/grams/popular');
+    expect(res.body).toEqual(
+      expect.arrayContaining([
+        {
+          username: expect.any(String),
+          photoUrl: expect.any(String),
+          caption: expect.any(String),
+          tags: expect.arrayContaining[expect.anything()],
+        },
+      ])
+    );
+    expect(res.body.length).toEqual(10);
+  });
+
   afterAll(() => {
     pool.end();
   });
