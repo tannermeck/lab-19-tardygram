@@ -49,14 +49,16 @@ describe('lab-19-tardygram routes', () => {
   it('should return a list of posts', async () => {
     const res = await request(app)
       .get('/grams')
-    expect(res.body).toEqual({
+    expect(res.body).toEqual(
+      expect.arrayContaining([
+        {
       id: expect.any(String),
-      username: user.username,
-      photo_url: 'catpictures.com/cat',
-      caption: 'my first post!',
-      tags: ['cat', 'first-post', 'tardygram'],
-    });
-  });
+      username: expect.any(String),
+      photo_url: expect.any(String),
+      caption: expect.any(String),
+      tags: expect.arrayContaining([ expect.any(String) ]),
+    }])
+  )});
 
   afterAll(() => {
     pool.end();
