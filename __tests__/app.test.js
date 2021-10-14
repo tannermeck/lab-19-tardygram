@@ -55,7 +55,7 @@ describe('lab-19-tardygram routes', () => {
           username: expect.any(String),
           photoUrl: expect.any(String),
           caption: expect.any(String),
-          tags: expect.arrayContaining([expect.any(String)]),
+          tags: expect.arrayContaining([expect.anything()]),
         },
       ])
     );
@@ -67,7 +67,7 @@ describe('lab-19-tardygram routes', () => {
       username: expect.any(String),
       photoUrl: expect.any(String),
       caption: expect.any(String),
-      tags: expect.arrayContaining([expect.any(String)]),
+      tags: expect.arrayContaining([expect.anything()]),
       comments: expect.arrayContaining([expect.any(String)]),
     });
   });
@@ -154,6 +154,20 @@ describe('lab-19-tardygram routes', () => {
       username: 'test_user',
       gramsId: '7',
     });
+  });
+
+  it('should return the top 10 users with the most comments on their posts', async () => {
+    const res = await request(app).get('/users/popular');
+
+    expect(res.body.length).toEqual(10);
+    expect(res.body).toEqual(
+      expect.arrayContaining([
+        {
+          username: expect.any(String),
+          totalComments: expect.any(String),
+        },
+      ])
+    );
   });
 
   afterAll(() => {
